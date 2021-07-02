@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Searchbar extends Component {
   state = {
@@ -11,15 +11,18 @@ class Searchbar extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.state.query);
-
     this.props.onSubmit(this.state.query);
     this.setState({ query: '' });
   };
 
-  render() {
+  queryPath = () => {
+    const { location, history } = this.props;
     const { query } = this.state;
 
+    history.push(`${location.pathname}?query=${query}`);
+  };
+
+  render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
@@ -30,14 +33,14 @@ class Searchbar extends Component {
           onChange={this.handleChange}
         />
 
-        <Link to={`/movies?query=${query}`}>
-          <button type="submit">
-            <span>Search</span>
-          </button>
-        </Link>
+        {/* onClick={this.handleGoBack} */}
+
+        <button type="submit" onClick={this.queryPath}>
+          <span>Search</span>
+        </button>
       </form>
     );
   }
 }
 
-export default Searchbar;
+export default withRouter(Searchbar);

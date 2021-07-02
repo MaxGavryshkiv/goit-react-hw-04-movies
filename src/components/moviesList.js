@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-const MoviesList = ({ movies, location }) => {
+const MoviesList = ({ movies, location, query }) => {
   return (
     <>
       {movies.map(movie => (
@@ -9,7 +9,7 @@ const MoviesList = ({ movies, location }) => {
           <Link
             to={{
               pathname: `movies/${movie.id}`,
-              state: { from: location },
+              state: { from: location, query: query },
             }}
           >
             {(movie.name && movie.name) || movie.title}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import movieApi from '../servises/movie-api';
 import SearchBar from '../components/SearchBar';
@@ -38,7 +38,7 @@ class MoviesPage extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        console.log('finish fetchQery');
+        // console.log('finish fetchQery');
         this.setState({ isLoading: false });
       });
   };
@@ -67,9 +67,8 @@ class MoviesPage extends Component {
             path={`${this.props.match.path}?query=${searchQuery}`}
             render={props => <MoviesList {...props} movies={movies} />}
           />
-          {/* <MoviesList movies={movies} /> */}
+          {/* <MoviesList movies={movies} query={searchQuery} /> */}
         </ul>
-        {/* <Link to={`${this.props.match.url}?query=${searchQuery}`}> */}
       </>
     );
   }

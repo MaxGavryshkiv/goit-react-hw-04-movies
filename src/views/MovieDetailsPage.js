@@ -13,6 +13,7 @@ class MovieDetailsPage extends Component {
     imgUrl: null,
     title: null,
     score: null,
+    movies: [],
   };
 
   //  overview genres id poster_path title vote_average
@@ -23,12 +24,6 @@ class MovieDetailsPage extends Component {
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US`,
     );
 
-    // console.log(response.data);
-    // if (response.data.title) {
-    //   this.setState({ title: response.data.title });
-    // } else {
-    //   this.setState({ title: response.data.name });
-    // }
     this.setState({
       overview: response.data.overview,
       genres: response.data.genres,
@@ -42,22 +37,20 @@ class MovieDetailsPage extends Component {
   handleGoBack = () => {
     const { location, history } = this.props;
 
-    // if (location.state && location.state.from) {
-    //   return history.push(location.state.from);
-    // }
-    // console.log(location);
-    history.push(location.state.from);
+    console.log(location);
+    console.log(location.state.query);
 
-    // history.push(location?.state?.from || routes.books);
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push('/');
   };
 
   render() {
     const { overview, genres, imgUrl, score, title, id } = this.state;
     const imgPath = 'https://image.tmdb.org/t/p/w300';
     const { match } = this.props;
-    const { location } = this.props;
 
-    console.log(location);
     return (
       <>
         <button type="button" onClick={this.handleGoBack}>

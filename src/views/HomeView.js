@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
+
+import MoviesList from '../components/MoviesList';
 
 class HomeView extends Component {
   state = {
@@ -12,7 +13,7 @@ class HomeView extends Component {
       'https://api.themoviedb.org/3/trending/all/day?api_key=d939c9834c714302e4aa1e60bbc82061',
     );
     this.setState({ movies: response.data.results });
-    console.log(this.state.movies);
+    // console.log(this.state.movies);
   }
 
   render() {
@@ -22,13 +23,7 @@ class HomeView extends Component {
         <h1>Trending today</h1>
 
         <ul>
-          {movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`movies/${movie.id}`}>
-                {(movie.name && movie.name) || movie.title}
-              </Link>
-            </li>
-          ))}
+          <MoviesList movies={movies} />
         </ul>
       </>
     );
