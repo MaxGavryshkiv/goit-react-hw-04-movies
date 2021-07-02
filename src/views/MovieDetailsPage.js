@@ -39,14 +39,30 @@ class MovieDetailsPage extends Component {
     });
   }
 
+  handleGoBack = () => {
+    const { location, history } = this.props;
+
+    // if (location.state && location.state.from) {
+    //   return history.push(location.state.from);
+    // }
+    // console.log(location);
+    history.push(location.state.from);
+
+    // history.push(location?.state?.from || routes.books);
+  };
+
   render() {
     const { overview, genres, imgUrl, score, title, id } = this.state;
     const imgPath = 'https://image.tmdb.org/t/p/w300';
     const { match } = this.props;
+    const { location } = this.props;
 
-    // console.log(genres);
+    console.log(location);
     return (
       <>
+        <button type="button" onClick={this.handleGoBack}>
+          Вернуться назад
+        </button>
         <h1>Страница одной книги </h1>
         <img src={`${imgPath}${imgUrl}`} alt="" />
         <h2>{title}</h2>
