@@ -48,7 +48,7 @@ class MovieDetailsPage extends Component {
   render() {
     const { overview, genres, imgUrl, score, title, id } = this.state;
     const imgPath = 'https://image.tmdb.org/t/p/w300';
-    const { match } = this.props;
+    const { match, location } = this.props;
 
     return (
       <>
@@ -71,7 +71,14 @@ class MovieDetailsPage extends Component {
 
         <ul>
           <li>
-            <Link to={{}}></Link>
+            <Link
+              to={{
+                pathname: `${match.path}/cast`, // Формирует путь для ссылки
+                state: { ...location.state }, // Передает полученый стейт при переходе на актёров
+              }}
+            >
+              Cast
+            </Link>
           </li>
         </ul>
 

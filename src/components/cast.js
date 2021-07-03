@@ -7,11 +7,36 @@ class Cast extends Component {
   };
 
   async componentDidMount() {
-    const { movieId } = this.props;
+    const { movieId } = this.props.match.params;
     console.log(movieId);
     const response = await Axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US`,
     );
+
+    // async componentDidMount() {
+    //     const { movieId } = this.props.match.params; // Получаем id фильма из match.params
+
+    //     this.setState({
+    //       isLoading: true,
+    //     });
+
+    //     try {
+    //       const { cast } = await api.fetchCast(movieId);
+
+    //       this.setState({
+    //         actors: [...cast],
+    //         error: null,
+    //       });
+    //     } catch (error) {
+    //       console.error('Smth wrong with fetch cast on movie page', error);
+    //       this.setState({ error });
+    //     } finally {
+    //       this.setState({
+    //         isLoading: false,
+    //       });
+    //     }
+    //   }
+
     // console.log(response.data.cast);
 
     //   adult: false;
