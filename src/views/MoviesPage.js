@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-
+import queryString from 'query-string';
+// withRouter;
 import movieApi from '../servises/movie-api';
 import SearchBar from '../components/SearchBar';
 import MoviesList from '../components/MoviesList';
@@ -21,7 +22,20 @@ class MoviesPage extends Component {
     }
   }
 
-  ///////////////////////////////////////////
+  ////////////////////////////////////////////
+
+  componentDidMount() {
+    const { search, pathname } = this.props.location;
+    const { query } = queryString.parse(search);
+
+    if (search && pathname) {
+      this.setState({
+        searchQuery: query,
+      });
+    }
+  }
+
+  ////////////////////////////////////////////
 
   fetchQuery = () => {
     const { searchQuery } = this.state;
@@ -46,9 +60,15 @@ class MoviesPage extends Component {
   ////////////////////////////////////////
 
   onChangeQuery = query => {
+    const { history } = this.props;
+
     this.setState({
       searchQuery: query,
       movies: [],
+    });
+
+    history.push({
+      search: `query=${query}`,
     });
   };
 
@@ -56,18 +76,19 @@ class MoviesPage extends Component {
 
   render() {
     const { movies, searchQuery } = this.state;
+    const { location } = this.props;
     return (
       <>
         <SearchBar
-          toUrl={`${this.props.match.url}?query=`}
+          toUrl={`${this.props.match.url}${location.search}`}
           onSubmit={this.onChangeQuery}
         />
         <ul>
-          <Route
+          {/* <Route
             path={`${this.props.match.path}?query=${searchQuery}`}
             render={props => <MoviesList {...props} movies={movies} />}
-          />
-          {/* <MoviesList movies={movies} query={searchQuery} /> */}
+          /> */}
+          <MoviesList movies={movies} query={searchQuery} />
         </ul>
       </>
     );
@@ -75,3 +96,4 @@ class MoviesPage extends Component {
 }
 
 export default MoviesPage;
+// withRouter();

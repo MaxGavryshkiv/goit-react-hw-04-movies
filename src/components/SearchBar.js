@@ -12,13 +12,14 @@ class Searchbar extends Component {
     event.preventDefault();
 
     this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
   };
 
   queryPath = () => {
     const { location, history } = this.props;
     const { query } = this.state;
 
+    // location.search.push(query);
+    // console.log(location.search, 'searchBar');
     history.push(`${location.pathname}?query=${query}`);
   };
 

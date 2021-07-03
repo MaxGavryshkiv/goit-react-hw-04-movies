@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import Cast from '../components/cast';
 import Reviews from '../components/review';
@@ -37,9 +37,8 @@ class MovieDetailsPage extends Component {
   handleGoBack = () => {
     const { location, history } = this.props;
 
-    console.log(location);
-    console.log(location.state.query);
-
+    console.log(location.state);
+    console.log(location.state.from);
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
@@ -69,23 +68,17 @@ class MovieDetailsPage extends Component {
           ))}
         </ul>
         <p>Additional information</p>
+
         <ul>
-          <Link to={`${match.url}/cast`}>
-            <li>Cast</li>
-          </Link>
-          <Link to={`${match.url}/reviews`}>
-            <li>Reviews</li>
-          </Link>
+          <li>
+            <Link to={{}}></Link>
+          </li>
         </ul>
-        {/* {this.props.match.params.bookId} */}
-        <Route
-          path={`${match.path}/cast`}
-          render={props => <Cast {...props} movieId={id} />}
-        />
-        <Route
-          path={`${match.path}/reviews`}
-          render={props => <Reviews {...props} movieId={id} />}
-        />
+
+        <Switch>
+          <Route exact path={`${match.path}/cast`} component={Cast} />
+          <Route exact path={`${match.path}/reviews`} component={Reviews} />
+        </Switch>
       </>
     );
   }
@@ -96,3 +89,27 @@ export default MovieDetailsPage;
 // const MovieDetailsPage = () => <h1>MovieDetailsPage</h1>;
 
 // export default MovieDetailsPage;
+
+//  {
+//    /* <ul>
+//           <Link to={`${match.url}/cast`}>
+//             <li>Cast</li>
+//           </Link>
+//           <Link to={`${match.url}/reviews`}>
+//             <li>Reviews</li>
+//           </Link>
+//         </ul> */
+//  }
+//  {
+//    /* {this.props.match.params.bookId} */
+//  }
+//  {
+/* <Route
+          path={`${match.path}/cast`}
+          render={props => <Cast {...props} movieId={id} />}
+        />
+        <Route
+          path={`${match.path}/reviews`}
+          render={props => <Reviews {...props} movieId={id} />}
+        /> */
+//  }
