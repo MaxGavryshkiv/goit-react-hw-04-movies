@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import queryString from 'query-string';
-// withRouter;
+
 import movieApi from '../servises/movie-api';
 import SearchBar from '../components/SearchBar';
 import MoviesList from '../components/MoviesList';
@@ -84,10 +83,6 @@ class MoviesPage extends Component {
           onSubmit={this.onChangeQuery}
         />
         <ul>
-          {/* <Route
-            path={`${this.props.match.path}?query=${searchQuery}`}
-            render={props => <MoviesList {...props} movies={movies} />}
-          /> */}
           <MoviesList movies={movies} query={searchQuery} />
         </ul>
       </>

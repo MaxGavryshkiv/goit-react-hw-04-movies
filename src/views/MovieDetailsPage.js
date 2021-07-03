@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Cast from '../components/cast';
 import Reviews from '../components/review';
+import DetailsNav from '../components/DetailsNav';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -20,6 +21,7 @@ class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
+    console.log(this.props.match);
     const response = await Axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US`,
     );
@@ -46,10 +48,11 @@ class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { overview, genres, imgUrl, score, title, id } = this.state;
+    const { overview, genres, imgUrl, score, title } = this.state;
     const imgPath = 'https://image.tmdb.org/t/p/w300';
     const { match, location } = this.props;
 
+    console.log(location, match);
     return (
       <>
         <button type="button" onClick={this.handleGoBack}>
@@ -67,20 +70,8 @@ class MovieDetailsPage extends Component {
             <li key={genre.id}>{genre.name}</li>
           ))}
         </ul>
-        <p>Additional information</p>
 
-        <ul>
-          <li>
-            <Link
-              to={{
-                pathname: `${match.path}/cast`, // Формирует путь для ссылки
-                state: { ...location.state }, // Передает полученый стейт при переходе на актёров
-              }}
-            >
-              Cast
-            </Link>
-          </li>
-        </ul>
+        <DetailsNav match={match} location={location} />
 
         <Switch>
           <Route exact path={`${match.path}/cast`} component={Cast} />
@@ -92,31 +83,3 @@ class MovieDetailsPage extends Component {
 }
 
 export default MovieDetailsPage;
-
-// const MovieDetailsPage = () => <h1>MovieDetailsPage</h1>;
-
-// export default MovieDetailsPage;
-
-//  {
-//    /* <ul>
-//           <Link to={`${match.url}/cast`}>
-//             <li>Cast</li>
-//           </Link>
-//           <Link to={`${match.url}/reviews`}>
-//             <li>Reviews</li>
-//           </Link>
-//         </ul> */
-//  }
-//  {
-//    /* {this.props.match.params.bookId} */
-//  }
-//  {
-/* <Route
-          path={`${match.path}/cast`}
-          render={props => <Cast {...props} movieId={id} />}
-        />
-        <Route
-          path={`${match.path}/reviews`}
-          render={props => <Reviews {...props} movieId={id} />}
-        /> */
-//  }
