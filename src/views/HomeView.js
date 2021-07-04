@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 
+import movieApi from '../servises/movie-api';
 import MoviesList from '../components/MoviesList';
 
 class HomeView extends Component {
@@ -9,12 +9,25 @@ class HomeView extends Component {
   };
 
   async componentDidMount() {
-    const response = await Axios.get(
-      'https://api.themoviedb.org/3/trending/all/day?api_key=d939c9834c714302e4aa1e60bbc82061',
-    );
-    this.setState({ movies: response.data.results });
-    // console.log(this.state.movies);
+    await this.fetchTrends();
   }
+
+  fetchTrends = () => {
+    this.setState({ isLoading: true });
+
+    movieApi
+      .fetchTrends()
+      .then(results => {
+        this.setState(prevState => ({
+          movies: [...results],
+        }));
+      })
+      .catch(error => console.log)
+      .finally(() => {
+        // console.log('finish fetchTrends');
+        this.setState({ isLoading: false });
+      });
+  };
 
   render() {
     const { movies } = this.state;

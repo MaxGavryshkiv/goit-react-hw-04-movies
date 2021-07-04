@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import movieApi from '../servises/movie-api';
 
 class Cast extends Component {
   state = {
@@ -7,57 +7,28 @@ class Cast extends Component {
   };
 
   async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    const { match, location } = this.props;
-    console.log(match);
-    console.log(location);
-    const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US`,
-    );
-
-    // async componentDidMount() {
-    //     const { movieId } = this.props.match.params; // Получаем id фильма из match.params
-
-    //     this.setState({
-    //       isLoading: true,
-    //     });
-
-    //     try {
-    //       const { cast } = await api.fetchCast(movieId);
-
-    //       this.setState({
-    //         actors: [...cast],
-    //         error: null,
-    //       });
-    //     } catch (error) {
-    //       console.error('Smth wrong with fetch cast on movie page', error);
-    //       this.setState({ error });
-    //     } finally {
-    //       this.setState({
-    //         isLoading: false,
-    //       });
-    //     }
-    //   }
-
-    // console.log(response.data.cast);
-
-    //   adult: false;
-    //   cast_id: 8;
-    //   character: 'George Washington (voice)';
-    //   credit_id: '6089bce0fcec2e00290807ea';
-    //   gender: 2;
-    //   id: 38673;
-    //   known_for_department: 'Acting';
-    //   name: 'Channing Tatum';
-    //   order: 0;
-    //   original_name: 'Channing Tatum';
-    //   popularity: 7.452;
-    //   profile_path: '/bhTmp6FA8fOQnGlNk75tdmj2bpu.jpg';
-
-    this.setState({
-      cast: response.data.cast,
-    });
+    await this.fetchCastWhithId();
   }
+
+  fetchCastWhithId = () => {
+    const { movieId } = this.props.match.params;
+    const option = { movieId };
+
+    this.setState({ isLoading: true });
+
+    movieApi
+      .fetchCastWhithId(option)
+      .then(data => {
+        this.setState(prevState => ({
+          cast: data.cast,
+        }));
+      })
+      .catch(error => console.log)
+      .finally(() => {
+        // console.log('finish fetchCastWhithId');
+        this.setState({ isLoading: false });
+      });
+  };
 
   render() {
     const { cast } = this.state;

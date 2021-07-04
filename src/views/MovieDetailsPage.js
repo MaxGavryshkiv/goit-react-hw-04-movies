@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 
+import movieApi from '../servises/movie-api';
 import Cast from '../components/cast';
 import Reviews from '../components/review';
 import DetailsNav from '../components/DetailsNav';
@@ -20,27 +20,39 @@ class MovieDetailsPage extends Component {
   //  overview genres id poster_path title vote_average
 
   async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    console.log(this.props.match);
-    const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US`,
-    );
-
-    this.setState({
-      overview: response.data.overview,
-      genres: response.data.genres,
-      id: response.data.id,
-      imgUrl: response.data.poster_path,
-      score: response.data.vote_average,
-      title: response.data.title,
-    });
+    await this.fetchWhithId();
   }
+
+  fetchWhithId = () => {
+    const { movieId } = this.props.match.params;
+    const option = { movieId };
+
+    this.setState({ isLoading: true });
+
+    movieApi
+      .fetchWhithId(option)
+      .then(data => {
+        this.setState(prevState => ({
+          overview: data.overview,
+          genres: data.genres,
+          id: data.id,
+          imgUrl: data.poster_path,
+          score: data.vote_average,
+          title: data.title,
+        }));
+      })
+      .catch(error => console.log)
+      .finally(() => {
+        // console.log('finish fetchWhithId');
+        this.setState({ isLoading: false });
+      });
+  };
 
   handleGoBack = () => {
     const { location, history } = this.props;
 
-    console.log(location.state);
-    console.log(location.state.from);
+    // console.log(location.state);
+    // console.log(location.state.from);
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
@@ -52,7 +64,7 @@ class MovieDetailsPage extends Component {
     const imgPath = 'https://image.tmdb.org/t/p/w300';
     const { match, location } = this.props;
 
-    console.log(location, match);
+    // console.log(location, match);
     return (
       <>
         <button type="button" onClick={this.handleGoBack}>

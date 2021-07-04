@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 class DetailsNav extends Component {
   render() {
     const { match, location } = this.props;
-    console.log(location, match);
+    // console.log(location, match);
 
     return (
       <div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import PropTypes from 'prop-types';
+import movieApi from '../servises/movie-api';
 
 class Cast extends Component {
   state = {
@@ -8,31 +7,48 @@ class Cast extends Component {
   };
 
   async componentDidMount() {
-    const { movieId } = this.props;
-    console.log(movieId);
-    const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=d939c9834c714302e4aa1e60bbc82061&language=en-US&page=1`,
-    );
-    console.log(response.data);
-
-    this.setState({
-      reviews: response.data.results,
-    });
+    await this.fetchReviewWhithId();
   }
 
+  fetchReviewWhithId = () => {
+    const { movieId } = this.props.match.params;
+    const option = { movieId };
+
+    this.setState({ isLoading: true });
+
+    movieApi
+      .fetchReviewWhithId(option)
+      .then(data => {
+        this.setState(prevState => ({
+          reviews: data,
+        }));
+      })
+      .catch(error => console.log)
+      .finally(() => {
+        // console.log('finish fetchReviewWhithId');
+        this.setState({ isLoading: false });
+      });
+  };
   render() {
     const { reviews } = this.state;
-    // const imgPath = 'https://image.tmdb.org/t/p/w300';
-    console.log(reviews.total_results);
+
     return (
       <>
         <h1>Обзори</h1>
-        {(reviews && <p>we don`t have reviews</p>) ||
-          reviews.map(result => (
+        {reviews.total_results === 0 && <p>we don`t have reviews</p>}
+        {reviews.total_results > 0 &&
+          reviews.results.map(result => (
             <li key={result.id}>
+              <h2>Autor: {result.author}</h2>
               <p>{result.content}</p>
             </li>
           ))}
+        {/* // reviews.results.map(result => (
+          //   <li key={result.id}>
+          //     <p>{result.content}</p>
+          //   </li>
+          // ))}
+        } */}
       </>
     );
   }

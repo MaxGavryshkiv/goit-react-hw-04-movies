@@ -14,10 +14,10 @@ class MoviesPage extends Component {
 
   ///////////////////////////////////
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { searchQuery } = this.state;
     if (prevState.searchQuery !== searchQuery) {
-      this.fetchQuery();
+      await this.fetchQuery();
     }
   }
 
