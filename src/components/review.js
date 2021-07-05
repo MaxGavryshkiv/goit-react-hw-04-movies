@@ -43,12 +43,6 @@ class Cast extends Component {
               <p>{result.content}</p>
             </li>
           ))}
-        {/* // reviews.results.map(result => (
-          //   <li key={result.id}>
-          //     <p>{result.content}</p>
-          //   </li>
-          // ))}
-        } */}
       </>
     );
   }

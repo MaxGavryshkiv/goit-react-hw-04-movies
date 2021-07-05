@@ -1,40 +1,47 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
-import HomeView from './views/HomeView';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsPage from './views/MovieDetailsPage';
+
+import Spiner from './components/Spiner';
+// import HomeView from './views/HomeView';
+// import MoviesPage from './views/MoviesPage';
+// import MovieDetailsPage from './views/MovieDetailsPage';
+import './styles/Button.scss';
+import './App.scss';
+
+const HomeView = lazy(() =>
+  import('./views/HomeView.js' /* webpackChunkName: "home-view" */),
+);
+const MoviesPage = lazy(() =>
+  import('./views/MoviesPage.js' /* webpackChunkName: "movies-page" */),
+);
+const MovieDetailsPage = lazy(() =>
+  import(
+    './views/MovieDetailsPage.js' /* webpackChunkName: "movies-details-page" */
+  ),
+);
 
 const App = () => (
   <>
-    <ul>
+    <ul className="flex">
       <li>
-        <NavLink
-          exact
-          to="/"
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
+        <NavLink exact to="/" className="Button m-right">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/movies"
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
+        <NavLink to="/movies" className="Button">
           Movies
         </NavLink>
       </li>
     </ul>
 
-    <Switch>
-      <Route exact path="/" component={HomeView} />
-      <Route exact path="/movies" component={MoviesPage} />
-      <Route path="/movies/:movieId" component={MovieDetailsPage} />
-      {/* <Route exact path="/movies/:movieId/cast" component={Cast} />
-    <Route exact path="/movies/:movieId/reviews" component={Reviews} /> */}
-    </Switch>
+    <Suspense fallback={<Spiner />}>
+      <Switch>
+        <Route exact path="/" component={HomeView} />
+        <Route exact path="/movies" component={MoviesPage} />
+        <Route path="/movies/:movieId" component={MovieDetailsPage} />
+      </Switch>
+    </Suspense>
   </>
 );
 

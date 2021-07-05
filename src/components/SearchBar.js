@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import '../styles/Searchbar.scss';
 
 class Searchbar extends Component {
   state = {
@@ -25,23 +28,35 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          onChange={this.handleChange}
-        />
+      <div className="Searchbar">
+        <form className="SearchForm" onSubmit={this.handleSubmit}>
+          <input
+            className="SearchForm-input"
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleChange}
+          />
 
-        {/* onClick={this.handleGoBack} */}
+          {/* onClick={this.handleGoBack} */}
 
-        <button type="submit" onClick={this.queryPath}>
-          <span>Search</span>
-        </button>
-      </form>
+          <button
+            className="SearchForm-button"
+            type="submit"
+            onClick={this.queryPath}
+          >
+            <span className="SearchForm-button-label">Search</span>
+          </button>
+        </form>
+      </div>
     );
   }
 }
+
+Searchbar.propTypes = {
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
 export default withRouter(Searchbar);

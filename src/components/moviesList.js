@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const MoviesList = ({ movies, location, query }) => {
+const MoviesList = ({ movies, location }) => {
   return (
     <>
       {movies.map(movie => (
@@ -9,7 +10,7 @@ const MoviesList = ({ movies, location, query }) => {
           <Link
             to={{
               pathname: `movies/${movie.id}`,
-              state: { from: location, query: query },
+              state: { from: location },
             }}
           >
             {(movie.name && movie.name) || movie.title}
@@ -18,6 +19,11 @@ const MoviesList = ({ movies, location, query }) => {
       ))}
     </>
   );
+};
+
+MoviesList.propTypes = {
+  movies: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default withRouter(MoviesList);

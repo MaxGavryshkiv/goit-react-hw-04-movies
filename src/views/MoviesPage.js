@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 
 import movieApi from '../servises/movie-api';
+import Spiner from '../components/Spiner';
 import SearchBar from '../components/SearchBar';
 import MoviesList from '../components/MoviesList';
 
@@ -9,7 +10,7 @@ class MoviesPage extends Component {
   state = {
     searchQuery: '',
     movies: [],
-    // isLoading: false,
+    isLoading: false,
   };
 
   ///////////////////////////////////
@@ -74,7 +75,7 @@ class MoviesPage extends Component {
   //////////////////////////////////////////
 
   render() {
-    const { movies, searchQuery } = this.state;
+    const { movies, searchQuery, isLoading } = this.state;
     const { location } = this.props;
     return (
       <>
@@ -82,13 +83,15 @@ class MoviesPage extends Component {
           toUrl={`${this.props.match.url}${location.search}`}
           onSubmit={this.onChangeQuery}
         />
-        <ul>
-          <MoviesList movies={movies} query={searchQuery} />
-        </ul>
+
+        {(isLoading && <Spiner />) || (
+          <ul>
+            <MoviesList movies={movies} query={searchQuery} />
+          </ul>
+        )}
       </>
     );
   }
 }
 
 export default MoviesPage;
-// withRouter();

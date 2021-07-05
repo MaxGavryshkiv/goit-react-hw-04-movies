@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import '../styles/Button.scss';
 
 class DetailsNav extends Component {
   render() {
@@ -10,13 +13,14 @@ class DetailsNav extends Component {
       <div>
         <p>Additional information:</p>
 
-        <ul>
+        <ul className="flex">
           <li>
             <Link
               to={{
                 pathname: `${match.url}/cast`, // Формирует путь для ссылки
                 state: { ...location.state }, // Передает полученый стейт при переходе на актёров
               }}
+              className="Button m-right"
             >
               Cast
             </Link>
@@ -27,6 +31,7 @@ class DetailsNav extends Component {
                 pathname: `${match.url}/reviews`, // Формирует путь для ссылки
                 state: { ...location.state }, // Передает полученый стейт при переходе на обзоры
               }}
+              className="Button m-bot"
             >
               Reviews
             </Link>
@@ -37,9 +42,9 @@ class DetailsNav extends Component {
   }
 }
 
-// MovieNavigation.propTypes = {
-//   match: PropTypes.object.isRequired,
-//   location: PropTypes.object.isRequired,
-// };
+DetailsNav.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
 export default withRouter(DetailsNav);
