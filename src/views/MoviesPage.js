@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import movieApi from '../servises/movie-api';
 import Spiner from '../components/Spiner';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/Searchbar/SearchBar';
 import MoviesList from '../components/MoviesList';
 
 class MoviesPage extends Component {

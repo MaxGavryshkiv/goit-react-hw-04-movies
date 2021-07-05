@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import '../styles/Searchbar.scss';
+import '../../styles/Searchbar.scss';
 
 class Searchbar extends Component {
   state = {

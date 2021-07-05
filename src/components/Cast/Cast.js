@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import movieApi from '../servises/movie-api';
+import movieApi from '../../servises/movie-api';
 
 class Cast extends Component {
   state = {

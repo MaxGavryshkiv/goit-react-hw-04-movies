@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import '../styles/Button.scss';
+import '../../styles/Button.scss';
 
 class DetailsNav extends Component {
   render() {

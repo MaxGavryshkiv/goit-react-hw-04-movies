@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import movieApi from '../servises/movie-api';
 // import Cast from '../components/cast';
 // import Reviews from '../components/review';
-import Spiner from '../components/Spiner';
-import DetailsNav from '../components/DetailsNav';
+import Spiner from '../components/Spiner/Spiner';
+import DetailsNav from '../components/DetailsNav/DetailsNav';
 
 import '../styles/Button.scss';
 
 const Cast = lazy(() =>
-  import('../components/cast' /* webpackChunkName: "cast" */),
+  import('../components/Cast' /* webpackChunkName: "cast" */),
 );
 const Reviews = lazy(() =>
-  import('../components/review' /* webpackChunkName: "reviews" */),
+  import('../components/Review/Review' /* webpackChunkName: "reviews" */),
 );
 
 class MovieDetailsPage extends Component {
