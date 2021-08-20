@@ -25,7 +25,6 @@ class Cast extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        // console.log('finish fetchReviewWhithId');
         this.setState({ isLoading: false });
       });
   };

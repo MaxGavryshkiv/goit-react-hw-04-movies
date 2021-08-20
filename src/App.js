@@ -2,9 +2,6 @@ import React, { Suspense, lazy } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
 
 import Spiner from './components/Spiner';
-// import HomeView from './views/HomeView';
-// import MoviesPage from './views/MoviesPage';
-// import MovieDetailsPage from './views/MovieDetailsPage';
 import './styles/Button.scss';
 import './App.scss';
 

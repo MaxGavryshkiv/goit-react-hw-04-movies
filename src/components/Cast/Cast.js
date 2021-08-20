@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import movieApi from '../../servises/movie-api';
 
+import '../../styles/cast.scss';
+import pictures from '../../pictures/nopictures.jpg';
+
 class Cast extends Component {
   state = {
     cast: [],
@@ -25,7 +28,6 @@ class Cast extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        // console.log('finish fetchCastWhithId');
         this.setState({ isLoading: false });
       });
   };
@@ -37,10 +39,19 @@ class Cast extends Component {
     return (
       <>
         <h1>Актори</h1>
-        <ul>
+        <ul className="cast-ul">
           {cast.map(actor => (
-            <li key={actor.id}>
-              <img src={`${imgPath}${actor.profile_path}`} alt={actor.name} />
+            <li className="cast-li" key={actor.id}>
+              {(actor.profile_path === null && (
+                <img
+                  className="cast-default-pict"
+                  src={pictures}
+                  alt={actor.name}
+                />
+              )) || (
+                <img src={`${imgPath}${actor.profile_path}`} alt={actor.name} />
+              )}
+
               <p>{actor.name}</p>
               <p>Character: {actor.character}</p>
             </li>

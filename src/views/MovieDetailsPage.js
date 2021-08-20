@@ -3,12 +3,11 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import movieApi from '../servises/movie-api';
-// import Cast from '../components/cast';
-// import Reviews from '../components/review';
 import Spiner from '../components/Spiner/Spiner';
 import DetailsNav from '../components/DetailsNav/DetailsNav';
 
 import '../styles/Button.scss';
+import '../styles/MovieDetailsPage.scss';
 
 const Cast = lazy(() =>
   import('../components/Cast' /* webpackChunkName: "cast" */),
@@ -53,7 +52,6 @@ class MovieDetailsPage extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        // console.log('finish fetchWhithId');
         this.setState({ isLoading: false });
       });
   };
@@ -74,36 +72,38 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        {/* <div className="button-container"> */}
-        <button className="Button" type="button" onClick={this.handleGoBack}>
-          Вернуться назад
-        </button>
-        {/* </div> */}
-
-        {(isLoading && <Spiner />) || (
-          <>
-            <h1>Страница одной книги </h1>
-            <img src={`${imgPath}${imgUrl}`} alt="" />
-            <h2>{title}</h2>
-            <p>User score: {score}</p>
-            <h3>Overview</h3>
-            <p>{overview}</p>
-            <h4>Genres</h4>
-            <ul>
-              {genres.map(genre => (
-                <li key={genre.id}>{genre.name}</li>
-              ))}
-            </ul>
-            <DetailsNav match={match} location={location} />
-          </>
-        )}
-
-        <Suspense fallback={<Spiner />}>
-          <Switch>
-            <Route exact path={`${match.path}/cast`} component={Cast} />
-            <Route exact path={`${match.path}/reviews`} component={Reviews} />
-          </Switch>
-        </Suspense>
+        <div className="container">
+          <button className="Button" type="button" onClick={this.handleGoBack}>
+            Вернуться назад
+          </button>
+          {(isLoading && <Spiner />) || (
+            <>
+              <div className="movie-content">
+                <h1 className="hiden">Страница одной книги </h1>
+                <img src={`${imgPath}${imgUrl}`} alt={`screen ${title}`} />
+                <div className="movie-content-about">
+                  <h2>{title}</h2>
+                  <p>User score: {score}</p>
+                  <h3>Overview</h3>
+                  <p>{overview}</p>
+                  <h4>Genres</h4>
+                  <ul>
+                    {genres.map(genre => (
+                      <li key={genre.id}>{genre.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <DetailsNav match={match} location={location} />
+            </>
+          )}
+          <Suspense fallback={<Spiner />}>
+            <Switch>
+              <Route exact path={`${match.path}/cast`} component={Cast} />
+              <Route exact path={`${match.path}/reviews`} component={Reviews} />
+            </Switch>
+          </Suspense>{' '}
+        </div>
       </>
     );
   }

@@ -1,0 +1,20 @@
+.cast-ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-top: -10px;
+  padding: 0 0 0 0;
+}
+.cast-li {
+  max-width: 300px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  //   border: 1px solid black;
+}
+.cast-default-pict {
+  width: 300px;
+  height: 450px;
+}

@@ -21,8 +21,6 @@ class Searchbar extends Component {
     const { location, history } = this.props;
     const { query } = this.state;
 
-    // location.search.push(query);
-    // console.log(location.search, 'searchBar');
     history.push(`${location.pathname}?query=${query}`);
   };
 
@@ -38,8 +36,6 @@ class Searchbar extends Component {
             placeholder="Search images and photos"
             onChange={this.handleChange}
           />
-
-          {/* onClick={this.handleGoBack} */}
 
           <button
             className="SearchForm-button"

@@ -1,0 +1,26 @@
+.movie-list__img {
+  width: 100%;
+}
+
+.movie-list__div {
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+.movie-list__ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-top: -10px;
+  padding: 0 0 0 0;
+}
+
+.movie-list__ul-li {
+  max-width: 300px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  //   border: 1px solid black;
+}

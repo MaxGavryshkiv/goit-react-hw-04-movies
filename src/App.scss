@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap';
+
 html {
   box-sizing: border-box;
   width: 100vw;
@@ -26,15 +28,18 @@ img {
   height: auto;
 }
 
-/*
- * Стили компонента App
- */
+li {
+  list-style: none;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
 .App {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
   padding-bottom: 24px;
-}
-li {
-  list-style: none;
 }

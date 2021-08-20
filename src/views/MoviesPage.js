@@ -13,16 +13,12 @@ class MoviesPage extends Component {
     isLoading: false,
   };
 
-  ///////////////////////////////////
-
   async componentDidUpdate(prevProps, prevState) {
     const { searchQuery } = this.state;
     if (prevState.searchQuery !== searchQuery) {
       await this.fetchQuery();
     }
   }
-
-  ////////////////////////////////////////////
 
   componentDidMount() {
     const { search, pathname } = this.props.location;
@@ -34,8 +30,6 @@ class MoviesPage extends Component {
       });
     }
   }
-
-  ////////////////////////////////////////////
 
   fetchQuery = () => {
     const { searchQuery } = this.state;
@@ -52,12 +46,9 @@ class MoviesPage extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        // console.log('finish fetchQery');
         this.setState({ isLoading: false });
       });
   };
-
-  ////////////////////////////////////////
 
   onChangeQuery = query => {
     const { history } = this.props;
@@ -71,8 +62,6 @@ class MoviesPage extends Component {
       search: `query=${query}`,
     });
   };
-
-  //////////////////////////////////////////
 
   render() {
     const { movies, searchQuery, isLoading } = this.state;

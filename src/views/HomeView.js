@@ -4,6 +4,8 @@ import movieApi from '../servises/movie-api';
 import Spiner from '../components/Spiner';
 import MoviesList from '../components/MoviesList';
 
+import '../styles/homeView.scss';
+
 class HomeView extends Component {
   state = {
     movies: [],
@@ -26,7 +28,6 @@ class HomeView extends Component {
       })
       .catch(error => console.log)
       .finally(() => {
-        // console.log('finish fetchTrends');
         this.setState({ isLoading: false });
       });
   };
@@ -35,7 +36,7 @@ class HomeView extends Component {
     const { movies, isLoading } = this.state;
     return (
       <>
-        <h1>Trending today</h1>
+        <h1 className="homeView-title">Trending today</h1>
         {(isLoading && <Spiner />) || (
           <ul>
             <MoviesList movies={movies} />

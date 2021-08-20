@@ -7,7 +7,6 @@ import '../../styles/Button.scss';
 class DetailsNav extends Component {
   render() {
     const { match, location } = this.props;
-    // console.log(location, match);
 
     return (
       <div>
@@ -17,8 +16,8 @@ class DetailsNav extends Component {
           <li>
             <Link
               to={{
-                pathname: `${match.url}/cast`, // Формирует путь для ссылки
-                state: { ...location.state }, // Передает полученый стейт при переходе на актёров
+                pathname: `${match.url}/cast`,
+                state: { ...location.state },
               }}
               className="Button m-right"
             >
@@ -28,8 +27,8 @@ class DetailsNav extends Component {
           <li>
             <Link
               to={{
-                pathname: `${match.url}/reviews`, // Формирует путь для ссылки
-                state: { ...location.state }, // Передает полученый стейт при переходе на обзоры
+                pathname: `${match.url}/reviews`,
+                state: { ...location.state },
               }}
               className="Button m-bot"
             >
